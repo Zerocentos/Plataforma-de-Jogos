@@ -1,5 +1,4 @@
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public class App {
@@ -8,7 +7,7 @@ public class App {
       JogadorDAO jogadorDAO = new JogadorDAOJdbc(conexao);
       List<Jogador> jogadores = jogadorDAO.listarTodos();
       RelatorioPtA.imprimir(conexao, jogadores);
-    } catch (SQLException | IllegalStateException e) {
+    } catch (Exception e) {
       System.err.println("Não foi possível executar a Parte A: " + e.getMessage());
       System.exit(1);
     }

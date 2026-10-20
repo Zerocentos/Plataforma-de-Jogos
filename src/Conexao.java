@@ -2,7 +2,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -28,7 +27,7 @@ public final class Conexao {
           }
         }
       }
-    } catch (IOException e) {
+    } catch (Exception e) {
       throw new SQLException("Não foi possível ler jogadores.sql.", e);
     }
   }

@@ -1,5 +1,5 @@
-javac -cp src/ src/App.java -d bin/
+mkdir -p bin
 
-java -cp bin/ App
-
+javac -cp "src:h2-2.4.240.jar" -d bin src/*.java
+java -cp "bin:h2-2.4.240.jar" App
 

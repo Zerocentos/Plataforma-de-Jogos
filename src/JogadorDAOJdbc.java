@@ -75,6 +75,6 @@ public class JogadorDAOJdbc implements JogadorDAO {
       rs.getDouble("gasto_mensal"),
       rs.getDouble("taxa_vitoria"),
       Perfil.valueOf(rs.getString("perfil"))
-  );
+    );
   }
 }

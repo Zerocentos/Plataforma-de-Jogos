@@ -31,7 +31,7 @@ public class JogadorDAOJdbc implements JogadorDAO {
     return jogadores;
   } 
 
-  /** Converte a linha atual do ResultSet em um Jogador. */
+  // Converte a linha atual do ResultSet em um Jogador.
   private Jogador montarJogador(ResultSet rs) throws SQLException {
     return new Jogador(
       rs.getInt("id"),

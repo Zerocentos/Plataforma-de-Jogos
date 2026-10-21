@@ -8,7 +8,7 @@ public class App {
       List<Jogador> jogadores = jogadorDAO.listarTodos();
       RelatorioPtA.imprimir(conexao, jogadores);
     } catch (Exception e) {
-      System.err.println("Não foi possível executar a Parte A: " + e.getMessage());
+      System.err.println("Não foi possível executar o programa: " + e.getMessage());
       System.exit(1);
     }
   }

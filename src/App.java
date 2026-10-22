@@ -60,7 +60,7 @@ public class App {
           executarParteB(jogadores);
           break;
         default:
-          throw new IllegalArgumentException("Opção de execução inválida: " + opcao);
+          assert false : "Opção inválida para executar";
       }
     }
   }

@@ -21,12 +21,13 @@ public class App {
   }
 
   private static int lerOpcao(Scanner scanner) {
+    System.out.println("Qual parte você deseja rodar? [Digite o número correspondente]");
+    System.out.println("1 - Pt A");
+    System.out.println("2 - Pt B");
+    System.out.println("3 - Rodar todos em sequência");
+    System.out.println("4 - Nenhum (sair)");
+
     while (true) {
-      System.out.println("Qual parte você deseja rodar? [Digite o número correspondente]");
-      System.out.println("1 - Pt A");
-      System.out.println("2 - Pt B");
-      System.out.println("3 - Rodar todos em sequência");
-      System.out.println("4 - Nenhum (sair)");
       System.out.print("> ");
 
       String resposta = scanner.nextLine().trim();

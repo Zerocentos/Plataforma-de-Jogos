@@ -7,7 +7,7 @@ public class App {
     Scanner scanner = new Scanner(System.in);
 
     int opcao = lerOpcao(scanner);
-    if (opcao == 4) {
+    if (opcao == 5) {
       System.out.println("Encerrando."); return;
     }
 
@@ -24,8 +24,9 @@ public class App {
     System.out.println("Qual parte você deseja rodar? [Digite o número correspondente]");
     System.out.println("1 - Pt A");
     System.out.println("2 - Pt B");
-    System.out.println("3 - Rodar todos em sequência");
-    System.out.println("4 - Nenhum (sair)");
+    System.out.println("3 - Pt C");
+    System.out.println("4 - Rodar todos em sequência");
+    System.out.println("5 - Nenhum (sair)");
 
     while (true) {
       System.out.print("> ");
@@ -33,12 +34,12 @@ public class App {
       String resposta = scanner.nextLine().trim();
       try {
         int opcao = Integer.parseInt(resposta);
-        if (opcao >= 1 && opcao <= 4) {
+        if (opcao >= 1 && opcao <= 5) {
           return opcao;
         }
-      } catch (Exception ignorada) { }
+      } catch (Exception _) { }
 
-      System.out.println("Opção inválida. Digite um número de 1 a 4.");
+      System.out.println("Opção inválida.");
       System.out.println();
     }
   }
@@ -56,8 +57,12 @@ public class App {
           executarParteB(jogadores);
           break;
         case 3:
+          executarParteC();
+          break;
+        case 4:
           executarParteA(conexao, jogadores);
           executarParteB(jogadores);
+          executarParteC();
           break;
         default:
           assert false : "Opção inválida para executar";
@@ -73,5 +78,9 @@ public class App {
   private static void executarParteB(List<Jogador> jogadores) {
     DadosPreparadosPtB dadosPtB = new DadosPreparadosPtB(jogadores);
     RelatorioPtB.imprimir(dadosPtB);
+  }
+
+  private static void executarParteC() {
+    assert false : "Parte C não implementada.";
   }
 }

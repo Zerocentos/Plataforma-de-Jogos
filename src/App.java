@@ -57,12 +57,12 @@ public class App {
           executarParteB(jogadores);
           break;
         case 3:
-          executarParteC();
+          executarParteC(jogadores);
           break;
         case 4:
           executarParteA(conexao, jogadores);
           executarParteB(jogadores);
-          executarParteC();
+          executarParteC(jogadores);
           break;
         default:
           assert false : "Opção inválida para executar";
@@ -80,7 +80,7 @@ public class App {
     RelatorioPtB.imprimir(dadosPtB);
   }
 
-  private static void executarParteC() {
-    assert false : "Parte C não implementada.";
+  private static void executarParteC(List<Jogador> jogadores) {
+    RelatorioPtC.imprimir(jogadores);
   }
 }

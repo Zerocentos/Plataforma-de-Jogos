@@ -1,10 +1,34 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class KMeans {
 
-    private List<Ponto> pontos;
+    private List<Ponto> pontos = new ArrayList<>();
+    private List<Ponto> centroids = new ArrayList<>();
+    private Random random = new Random();
     
+    public KMeans(int k) {
+        for(int i = 0; i < k; i++) {
+            centroids.add(adicionarCentroid());
+        }
+    }
+
+    private Ponto adicionarCentroid() {
+        Ponto p = new Ponto(null);
+        double value;
+
+        for(NomeCaracteristica caracteristica :
+            NomeCaracteristica.values()) {
+                value = random.nextDouble();
+
+                p.colocarValor(caracteristica, value);
+            }
+
+        return p;
+    }
+
     private class Ponto {
         private Map<NomeCaracteristica, Double> coordenada;
 

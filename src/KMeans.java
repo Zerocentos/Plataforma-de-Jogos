@@ -8,8 +8,14 @@ public class KMeans {
     private Map<Jogador, Ponto> posicaoPorJogador;
     private List<Ponto> centroids = new ArrayList<>();
     private Random random = new Random();
-    
+
     public KMeans(int k) {
+        this(k, null);
+    }
+    
+    public KMeans(int k, Map<Jogador, Ponto> posicaoPorJogador) {
+        this.posicaoPorJogador = posicaoPorJogador;
+
         for(int i = 0; i < k; i++) {
             centroids.add(adicionarCentroid());
         }
@@ -27,5 +33,14 @@ public class KMeans {
             }
 
         return p;
+    }
+
+    private Ponto distanciaParaCentroid(Ponto p) {
+        double valor;
+
+        for(NomeCaracteristica caracteristica
+            : NomeCaracteristica.values()) {
+            valor = p.
+        }
     }
 }

@@ -14,7 +14,7 @@ public final class Normalizador {
 
   /**
    * Calcula mínimo e máximo de cada característica somente com os dados
-   * recebidos. Na Parte B, passe aqui apenas os jogadores de treino.
+   * recebidos. Na parte B, recebe apenas os jogadores de treino.
    */
   public static Normalizador ajustado(List<Jogador> jogadoresDeTreino) {
     assert jogadoresDeTreino != null;

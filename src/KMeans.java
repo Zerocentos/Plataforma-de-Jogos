@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class KMeans {
 
-    private List<Ponto> pontos = new ArrayList<>();
+    private Map<Jogador, Ponto> posicaoPorJogador;
     private List<Ponto> centroids = new ArrayList<>();
     private Random random = new Random();
     
@@ -27,21 +27,5 @@ public class KMeans {
             }
 
         return p;
-    }
-
-    private class Ponto {
-        private Map<NomeCaracteristica, Double> coordenada;
-
-        public Ponto(Map<NomeCaracteristica, Double> coordenada) {
-            this.coordenada = coordenada;
-        }
-
-        public void colocarValor(NomeCaracteristica caracteristica, double valor) 
-            throws IllegalArgumentException {
-            if(valor < 0 || valor > 1)
-                throw new IllegalArgumentException();
-
-            coordenada.put(caracteristica, valor);
-        } 
     }
 }

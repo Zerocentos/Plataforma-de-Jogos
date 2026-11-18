@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -10,7 +11,7 @@ public class KMeans {
     private Random random = new Random();
 
     public KMeans(int k) {
-        this(k, null);
+        this(k, new HashMap<>());
     }
     
     public KMeans(int k, Map<Jogador, Ponto> posicaoPorJogador) {
@@ -22,7 +23,7 @@ public class KMeans {
     }
 
     private Ponto adicionarCentroid() {
-        Ponto p = new Ponto(null);
+        Ponto p = new Ponto(new HashMap<>());
         double value;
 
         for(NomeCaracteristica caracteristica :
@@ -35,12 +36,47 @@ public class KMeans {
         return p;
     }
 
-    private Ponto distanciaParaCentroid(Ponto p) {
+    private double distanciaParaCentroid(Ponto p, Ponto c) {
+        NomeCaracteristica[] nomes = NomeCaracteristica.values();
         double valor;
+        double distancia = Math.abs(p.getValor(nomes[0])
+                           - c.getValor(nomes[0]));
 
-        for(NomeCaracteristica caracteristica
-            : NomeCaracteristica.values()) {
-            valor = p.
+        for(int i=1; i < nomes.length; i++) {
+                valor = Math.abs(p.getValor(nomes[i]) 
+                        - c.getValor(nomes[i]));
+
+                distancia = Math.sqrt(distancia + valor);
         }
+
+        return distancia;
+    }
+
+    private Ponto centroidMaisProximo(Ponto p) {
+        Ponto centroidProximo = null;
+        double distanciaCentroid = 2; // A distância não pode ser maior que 2;
+
+        for(Ponto c : centroids) {
+            if(centroidProximo == null || 
+                distanciaCentroid <= distanciaParaCentroid(p, c)) continue;
+
+            distanciaCentroid = distanciaParaCentroid(p, c);
+            centroidProximo = c;
+        }
+
+        return centroidProximo;
+    }
+
+    private Map<Ponto, Ponto> agrupamentoPorCentroid() {
+        Map<Ponto, Ponto> pontoPorCentroid = new HashMap<>();
+        Ponto centroid;
+
+        for(Ponto p : posicaoPorJogador.values()) {
+            centroid = centroidMaisProximo(p);
+
+            pontoPorCentroid.put(p, centroid);
+        }
+
+        return pontoPorCentroid;
     }
 }

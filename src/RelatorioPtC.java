@@ -1,7 +1,7 @@
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 public final class RelatorioPtC {
-
-    private static List<double[]> caracteristicasNormalizadas;
 
     public RelatorioPtC() { }
 
@@ -11,8 +11,10 @@ public final class RelatorioPtC {
         System.out.println("-".repeat(20));
 
         System.out.println("Normalizando dados...");
-        caracteristicasNormalizadas = normalizarJogadores(jogadores);
+        converterValores(jogadores, normalizarJogadores(jogadores));
         System.out.println("Dados normalizados!");
+
+        
     }
 
     private static List<double[]> normalizarJogadores(List<Jogador> jogadores) {
@@ -21,7 +23,25 @@ public final class RelatorioPtC {
         return norma.transformarTodos(jogadores);
     }
 
-    public static List<double[]> getCaracteristicasNormalizadas() {
-        return caracteristicasNormalizadas;
+    private static Map<Jogador, Ponto> converterValores(List<Jogador> jogadores, 
+        List<double[]> valoresCaracteristicas) {
+
+        Ponto coordenada = new Ponto(new HashMap<>()); 
+        Map<Jogador, Ponto> jogadorPorPonto = new HashMap<>();
+
+        for(Jogador jogador : jogadores) {
+            for(double[] valores : valoresCaracteristicas) {
+                coordenada.colocarValor(NomeCaracteristica.values()[0], valores[0]);
+                coordenada.colocarValor(NomeCaracteristica.values()[1], valores[1]);
+                coordenada.colocarValor(NomeCaracteristica.values()[2], valores[2]);
+                coordenada.colocarValor(NomeCaracteristica.values()[3], valores[3]);
+                coordenada.colocarValor(NomeCaracteristica.values()[4], valores[4]);
+                coordenada.colocarValor(NomeCaracteristica.values()[5], valores[5]);
+
+                jogadorPorPonto.put(jogador, coordenada);
+            }
+        }
+
+        return jogadorPorPonto;
     }
 }

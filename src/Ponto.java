@@ -7,11 +7,31 @@ public class Ponto {
         this.coordenada = coordenada;
     }
 
-    public void colocarValor(NomeCaracteristica caracteristica, double valor) 
+    public double colocarValor(NomeCaracteristica caracteristica, double valor) 
         throws IllegalArgumentException {
         if(valor < 0 || valor > 1)
             throw new IllegalArgumentException();
 
-        coordenada.put(caracteristica, valor);
-    } 
+        return coordenada.put(caracteristica, valor);
+    }
+
+    public boolean temCaracteristica(NomeCaracteristica caracteristica) {
+        return coordenada.containsKey(caracteristica);
+    }
+
+    public double removerValor(NomeCaracteristica caracteristica) {
+        return coordenada.remove(caracteristica);
+    }
+
+    public double getValor(NomeCaracteristica caracteristica) {
+        return coordenada.get(caracteristica);
+    }
+
+    public Map<NomeCaracteristica, Double> getCoordenada() {
+        return coordenada;
+    }
+
+    public void setCoordenada(Map<NomeCaracteristica, Double> coordenada) {
+        this.coordenada = coordenada;
+    }
 }

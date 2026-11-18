@@ -38,29 +38,30 @@ public class KMeans {
 
     private double distanciaParaCentroid(Ponto p, Ponto c) {
         NomeCaracteristica[] nomes = NomeCaracteristica.values();
-        double valor;
-        double distancia = Math.abs(p.getValor(nomes[0])
-                           - c.getValor(nomes[0]));
+        double distancia = 0;
+        double diferenca;
 
-        for(int i=1; i < nomes.length; i++) {
-                valor = Math.abs(p.getValor(nomes[i]) 
-                        - c.getValor(nomes[i]));
+        for(int i = 0; i < nomes.length; i++) {
+            diferenca = Math.abs(p.getValor(nomes[i])
+                           - c.getValor(nomes[i]));
 
-                distancia = Math.sqrt(distancia + valor);
+            distancia += Math.pow(diferenca, 2);
         }
 
-        return distancia;
+        return Math.sqrt(distancia);
     }
 
     private Ponto centroidMaisProximo(Ponto p) {
         Ponto centroidProximo = null;
-        double distanciaCentroid = 2; // A distância não pode ser maior que 2;
+        double distancia = -1; // A distância não pode ser maior que 2;
 
         for(Ponto c : centroids) {
-            if(centroidProximo == null || 
-                distanciaCentroid <= distanciaParaCentroid(p, c)) continue;
+            if(centroidProximo != null &&
+                distancia != -1 &&
+                distancia >= distanciaParaCentroid(p, c))
+                continue;
 
-            distanciaCentroid = distanciaParaCentroid(p, c);
+            distancia = distanciaParaCentroid(p, c);
             centroidProximo = c;
         }
 

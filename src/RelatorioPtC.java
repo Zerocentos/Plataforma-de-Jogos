@@ -35,8 +35,6 @@ public final class RelatorioPtC {
                 coordenada.colocarValor(NomeCaracteristica.values()[1], valores[1]);
                 coordenada.colocarValor(NomeCaracteristica.values()[2], valores[2]);
                 coordenada.colocarValor(NomeCaracteristica.values()[3], valores[3]);
-                coordenada.colocarValor(NomeCaracteristica.values()[4], valores[4]);
-                coordenada.colocarValor(NomeCaracteristica.values()[5], valores[5]);
 
                 jogadorPorPonto.put(jogador, coordenada);
             }

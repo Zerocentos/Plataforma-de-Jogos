@@ -4,6 +4,8 @@ public class Ponto {
     private Map<NomeCaracteristica, Double> coordenada;
 
     public Ponto(Map<NomeCaracteristica, Double> coordenada) {
+        assert coordenada != null : "As coordenadas não podem ser nulos";
+
         this.coordenada = coordenada;
     }
 
@@ -29,9 +31,10 @@ public class Ponto {
     }
 
     public double getValor(NomeCaracteristica caracteristica) {
-        assert caracteristica != null 
-            : "Característica não pode ser vazio.";
-            
+        if(caracteristica == null || !coordenada.containsKey(caracteristica)) 
+            throw new IllegalArgumentException("Característica não pode ser vazio.\n" +
+                "Ou característica já deve ter valor na coordenada.");
+
         return coordenada.get(caracteristica);
     }
 

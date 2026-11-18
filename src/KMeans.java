@@ -15,6 +15,8 @@ public class KMeans {
     }
     
     public KMeans(int k, Map<Jogador, Ponto> posicaoPorJogador) {
+        assert k > 0 : "O número de centroids deve ser positivo.";
+        
         this.posicaoPorJogador = posicaoPorJogador;
 
         for(int i = 0; i < k; i++) {

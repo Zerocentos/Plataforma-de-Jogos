@@ -15,9 +15,8 @@ public class Ponto {
         if(caracteristica == null) 
             throw new IllegalArgumentException("Característica não pode ser vazio");
 
-        if(valor < 0 || valor > 1 || Double.isNaN(valor))
-            throw new IllegalArgumentException("Valor não pode ter valores" +
-                "fora do limite entre 0 e 1 ou vazio!");
+        if(!Double.isFinite(valor))
+            throw new IllegalArgumentException("A coordenada deve ser um número finito.");
 
         coordenada.put(caracteristica, valor);
     }

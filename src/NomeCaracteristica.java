@@ -4,14 +4,13 @@ public enum NomeCaracteristica {
     GASTO_MENSAL("Gasto mensal"),
     TAXA_DE_VITORIA("Taxa de vitória");
 
-    String frase;
+    private final String frase;
 
-    NomeCaracteristica(String frase) {
+    private NomeCaracteristica(String frase) {
         this.frase = frase;
     }
 
-    @Override
-    public String toString() {
+    public String getDescricao() {
         return this.frase;
     }
 }

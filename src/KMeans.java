@@ -9,14 +9,10 @@ public class KMeans {
     private Map<Jogador, Ponto> posicaoPorJogador;
     private List<Ponto> centroids = new ArrayList<>();
     private Random random = new Random();
-
-    public KMeans(int k) {
-        this(k, new HashMap<>());
-    }
     
     public KMeans(int k, Map<Jogador, Ponto> posicaoPorJogador) {
         assert k > 0 : "O número de centroids deve ser positivo.";
-        
+
         this.posicaoPorJogador = posicaoPorJogador;
 
         for(int i = 0; i < k; i++) {
@@ -56,14 +52,17 @@ public class KMeans {
     private Ponto centroidMaisProximo(Ponto p) {
         Ponto centroidProximo = null;
         double distancia = -1; // A distância não pode ser maior que 2;
+        double distCentroid;
 
         for(Ponto c : centroids) {
+            distCentroid = distanciaParaCentroid(p, centroidProximo);
+
             if(centroidProximo != null &&
                 distancia != -1 &&
-                distancia >= distanciaParaCentroid(p, c))
+                distancia >= distCentroid)
                 continue;
 
-            distancia = distanciaParaCentroid(p, c);
+            distancia = distCentroid;
             centroidProximo = c;
         }
 

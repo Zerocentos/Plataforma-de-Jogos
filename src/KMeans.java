@@ -9,15 +9,18 @@ import java.util.Random;
 public class KMeans {
 
     private static final int MAX_ITERACOES = 300;
-    private static final double TOLERANCIA = 1e-6;
 
     private final int k;
     private final Map<Jogador, Ponto> posicaoPorJogador;
     private final List<Ponto> centroides = new ArrayList<>();
-    private final Random random = new Random();
+    private final Random random;
     private Map<Jogador, Integer> grupoPorJogador = new HashMap<>();
 
     public KMeans(int k, Map<Jogador, Ponto> posicaoPorJogador) {
+        this(k, posicaoPorJogador, System.nanoTime());
+    }
+
+    public KMeans(int k, Map<Jogador, Ponto> posicaoPorJogador, long semente) {
         if (k <= 0) 
             throw new IllegalArgumentException("O número de grupos (k) deve ser positivo.");
 
@@ -31,24 +34,29 @@ public class KMeans {
 
         this.k = k;
         this.posicaoPorJogador = new HashMap<>(posicaoPorJogador);
+        this.random = new Random(semente);
 
         validarPontos();
         inicializarCentroides();
     }
 
     public Map<Jogador, Integer> agrupar() {
-        for (int iteracao = 0; iteracao < MAX_ITERACOES; iteracao++) {
+        Map<Jogador, Integer> atribuicoesAnteriores = null;
 
+        for (int iteracao = 0; iteracao < MAX_ITERACOES; iteracao++) {
             Map<Jogador, Integer> novasAtribuicoes = atribuirPontos();
             List<Ponto> novosCentroides = recalcularCentroides(novasAtribuicoes);
-            double maiorDeslocamento = maiorDeslocamento(centroides, novosCentroides);
+            boolean gruposEstaveis = novasAtribuicoes.equals(atribuicoesAnteriores);
 
             grupoPorJogador = novasAtribuicoes;
+
             centroides.clear();
             centroides.addAll(novosCentroides);
 
-            if (maiorDeslocamento <= TOLERANCIA)
+            if (gruposEstaveis)
                 break;
+
+            atribuicoesAnteriores = novasAtribuicoes;
         }
 
         return Map.copyOf(grupoPorJogador);
@@ -89,10 +97,17 @@ public class KMeans {
 
     private void inicializarCentroides() {
         List<Ponto> pontos = new ArrayList<>(posicaoPorJogador.values());
-        Ponto pontoAleatorio = copiarPonto(pontos.get(random.nextInt(pontos.size())));
+        // Embaralhar sem reposição garante sementes distintas quando k <= n.
+        for (int i = pontos.size() - 1; i > 0; i--) {
+            int indice = random.nextInt(i + 1);
+            Ponto temporario = pontos.get(i);
+
+            pontos.set(i, pontos.get(indice));
+            pontos.set(indice, temporario);
+        }
         
         for (int i = 0; i < k; i++) {
-            centroides.add(pontoAleatorio);
+            centroides.add(copiarPonto(pontos.get(i)));
         }
     }
 
@@ -145,14 +160,6 @@ public class KMeans {
             resultado.add(new Ponto(coordenadas));
         }
         return resultado;
-    }
-
-    private double maiorDeslocamento(List<Ponto> antigos, List<Ponto> novos) {
-        double maior = 0.0;
-        for (int i = 0; i < antigos.size(); i++) {
-            maior = Math.max(maior, distanciaParaCentroide(antigos.get(i), novos.get(i)));
-        }
-        return maior;
     }
 
     private double distanciaParaCentroide(Ponto ponto, Ponto centroide) {

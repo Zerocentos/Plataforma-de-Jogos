@@ -10,11 +10,22 @@ public final class RelatorioPtC {
         System.out.println("Parte C - K-means");
         System.out.println("-".repeat(20));
 
-        System.out.println("Normalizando dados...");
-        converterValores(jogadores, normalizarJogadores(jogadores));
-        System.out.println("Dados normalizados!");
+        List<double[]> caracteristicas = normalizarJogadores(jogadores);
 
+        System.out.println("\nDados normalizados!");
+        System.out.println("Os 5 primeiros jogadores: ");
         
+        for(int i = 0; i < 5; i++) {
+            System.out.println("Jogador " + i + ": ");
+
+            for(int j = 0; j < NomeCaracteristica.values().length; j++) {
+                System.out.println(
+                    NomeCaracteristica.values()[j].getDescricao() + ": " 
+                    + caracteristicas.get(i)[j]);
+            }
+
+            System.out.println();
+        }
     }
 
     private static List<double[]> normalizarJogadores(List<Jogador> jogadores) {
